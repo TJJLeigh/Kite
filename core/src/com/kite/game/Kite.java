@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 
-public class Kite extends ApplicationAdapter implements InputProcessor{
+public class Kite extends ApplicationAdapter{
 	static OrthographicCamera cam;
 	static OrthographicCamera getCamera(){return cam;}
 	static Viewport viewport;
@@ -19,54 +19,23 @@ public class Kite extends ApplicationAdapter implements InputProcessor{
 	SpriteBatch batch;
 
 	
-	static GameState Current_State = GameState.Mainmenu;
-	public static GameState getCurrent_State() {
-		return Current_State;
-	}
-	public static void setCurrent_State(GameState current_State) {
-		Current_State = current_State;
-	}
 	@Override
 	public void create () {
-		Gdx.input.setInputProcessor(this);
 		cam = new OrthographicCamera();
 		viewport = new FitViewport(720,1280, cam);
 		batch = new SpriteBatch();
-		MainMenu.Switch();
+		StateManager.Switch(new MainMenu());
+
 	}
-	public void Update(float dt){
-		switch(Current_State){
-			case Mainmenu:
-				MainMenu.Update(dt);
-				MainMenu.Draw(batch);				
-			break;
-			case Help:
-				
-			break;
-			case Game:
-				Game.Update(dt);	
-				Game.Draw(batch);
-			break;
-			case Pause:
-				
-			break;
-			case GameOver:
-				GameOver.Update(dt);
-				GameOver.Draw(batch);
-			break;
-		}
-			
-	}
+
 	@Override
 	public void pause(){
-		Current_State = GameState.Pause;
+		StateManager.Push(new Pause());
 		
 	}
 	@Override
 	public void resume(){
-		Current_State = GameState.Game;
-		
-		
+		StateManager.Pop();
 	}
 	@Override
 	public void resize(int w, int h){
@@ -79,50 +48,6 @@ public class Kite extends ApplicationAdapter implements InputProcessor{
 		batch.setProjectionMatrix(cam.combined);
 		Gdx.gl.glClearColor(.52f,.81f,1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Update(Gdx.graphics.getDeltaTime());
-	}
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if (Current_State == GameState.GameOver){
-			GameOver.touchDown();
-		}else if(Current_State == GameState.Mainmenu){
-			MainMenu.touchDown();
-		}
-		return false;
-	}
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
+		StateManager.Update(Gdx.graphics.getDeltaTime(), batch);
 	}
 }

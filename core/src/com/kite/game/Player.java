@@ -49,7 +49,7 @@ public class Player extends GameObject{
 		}
 		for(Bird bd: Game.birds){
 			if (new Vector2(bd.getPos().x - getPos().x, bd.getPos().y - getPos().y).len() < 128f){
-				GameOver.Switch();
+				StateManager.Switch(new GameOver());
 			}
 		}
 	}

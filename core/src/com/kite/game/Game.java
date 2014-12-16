@@ -1,13 +1,14 @@
 package com.kite.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
-public class Game{
+public class Game extends State implements InputProcessor{
 	static Player player;
 	public static Array<Bird> birds = new Array<Bird>();
 	public static Timer birdtimer;
@@ -20,23 +21,26 @@ public class Game{
 			}
 			
 	};
-
-	public static void OnEnter(){
+	@Override
+	public void OnEnter(){
 		player  = new Player(new Vector2(100,100), 60);
 		birds = new Array<Bird>();
 		SpawnBird();
+		try{birdtimer.clear();} catch (NullPointerException e){}
 		birdtimer = new Timer();
 		birdtimer.scheduleTask(birdspawner, 3, 3);
 		scorefont = new BitmapFont(Gdx.files.internal("grunds-b90.fnt"));
 	}
-	public static void Update(float dt){
+	@Override
+	public void Update(float dt){
 		player.Update(dt);
 		for (Bird bird: birds){
 			bird.Update(dt);
 		}
 		
 	}
-	public static void Draw(SpriteBatch batch){
+	@Override
+	public void Draw(SpriteBatch batch){
 		batch.begin();
 		for (Bird bird: birds){
 			bird.Draw(batch);
@@ -51,10 +55,7 @@ public class Game{
 		
 		
 	}
-	public static void Switch(){
-		Kite.setCurrent_State(GameState.Game);
-		OnEnter();
-	}
+	
 	public static void Reset(){
 		birdtimer.clear();
 		birds = new Array<Bird>();
@@ -69,5 +70,45 @@ public class Game{
 				}
 			}
 		
+	}
+	@Override
+	public boolean keyDown(int keycode) {
+		StateManager.Push(new Pause());
+		return false;
+	}
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
