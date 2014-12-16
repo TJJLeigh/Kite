@@ -6,6 +6,9 @@ import com.badlogic.gdx.utils.Array;
 
 public class StateManager {
 	private static Array<State> states = new Array<State>();
+	public static Array<State> getStates() {
+		return states;
+	}
 	public static void Update(float dt,SpriteBatch batch){
 
 		if (states.size != 0){
