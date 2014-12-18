@@ -3,10 +3,18 @@ package com.kite.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Help extends State {
 	BitmapFont ruletext = new BitmapFont(Gdx.files.internal("grunds-b36.fnt"));
-
+	Button.ButtonEvent Back = new Button.ButtonEvent() {
+		
+		@Override
+		public void run() {
+			StateManager.Pop();
+		}
+	};
+	Button BackButton = new Button(ruletext, Back, "Back", new Vector2(-30, -500));
 	@Override
 	public void Update(float dt) {
 		// TODO Auto-generated method stub
@@ -19,6 +27,7 @@ public class Help extends State {
 		batch.begin();
 		ruletext.draw(batch, "The String kills the birds", -200, 100);
 		ruletext.draw(batch, "Figure it out", -110, 0);
+		BackButton.Draw(batch);
 		batch.end();
 
 	}
@@ -48,7 +57,8 @@ public class Help extends State {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		Vector2 v = Kite.getViewport().unproject(new Vector2(screenX, screenY));
+		BackButton.Press(v.x, v.y);
 		return false;
 	}
 

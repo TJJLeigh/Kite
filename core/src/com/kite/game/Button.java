@@ -42,8 +42,8 @@ public class Button{
 		hasImage = false;
 		OnPressed = e;
 		TextBounds bnds = font.getBounds(i);
-		Width = bnds.width;
-		Height = bnds.height;	
+		Width = bnds.width * 2;
+		Height = bnds.height * 2;	
 		pos = p;
 	}
 	Button(Texture i, ButtonEvent e, float w, float h){
@@ -56,10 +56,10 @@ public class Button{
 		image = new Sprite(i);
 		pos = p;
 		OnPressed = e;
-		Width = w;
-		Height = h;
 		isHidden = false;
 		image.scale(scale);
+		Width = w * image.getScaleX();
+		Height = h * image.getScaleY();
 		
 	}
 	public void Hide(){
@@ -88,7 +88,7 @@ public class Button{
 			OnPressed.run();
 		}
 		if (hasImage){
-		if (x > pos.x && x < (pos.x + Width * image.getScaleX()) && y > pos.y && y < (pos.y + Height * image.getScaleY())&& !isString){
+		if (x > pos.x && x < (pos.x + Width) && y > pos.y && y < (pos.y + Height)&& !isString){
 			OnPressed.run();
 		}}
 	}
