@@ -17,7 +17,7 @@ public class Game extends State implements InputProcessor{
 	public static int HighScore;
 	static BitmapFont scorefont;
 	Texture PauseButtonImage = new Texture("pause.png");
-	private Button PauseButton;
+	static private Button PauseButton;
 	Button.ButtonEvent  PauseEvent = new Button.ButtonEvent(){
 		@Override
 		public void run(){
@@ -76,6 +76,9 @@ public class Game extends State implements InputProcessor{
 		batch.end();
 		
 		
+	}
+	public static void HideButton(){
+		PauseButton.Hide();
 	}
 /*	
 	public static void Reset(){

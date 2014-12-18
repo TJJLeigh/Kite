@@ -34,7 +34,7 @@ public class Pause extends State implements InputProcessor {
 		PlayButton.Draw(batch);
 		batch.end();
 		batch.begin();
-		pausedfont.draw(batch, "Paused", -120, 100);
+		pausedfont.drawWrapped(batch, "Paused", -360, 100, 720, BitmapFont.HAlignment.CENTER);
 		batch.end();
 
 	}
