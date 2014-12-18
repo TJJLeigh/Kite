@@ -5,22 +5,41 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class MainMenu extends State implements InputProcessor{
-	static BitmapFont grundsb90;
-	static BitmapFont grundsb36;
+	static BitmapFont grundsb90= new BitmapFont(Gdx.files.internal("grunds-b90.fnt"));
+	static BitmapFont grundsb36= new BitmapFont(Gdx.files.internal("grunds-b36.fnt"));
 	static Label.LabelStyle titlestyle;
 	static Label title;
+	//Button Events!
+	//------------------------------------------------------------
+	Button.ButtonEvent GoToGame = new Button.ButtonEvent() {
+		
+		@Override
+		public void run() {
+			StateManager.Switch(new Game());
+		}
+	};
+	Button.ButtonEvent GoToHelp = new Button.ButtonEvent() {
+		
+		@Override
+		public void run() {
+			StateManager.Push(new Help());
+			
+		}
+	};
+	//------------------------------------------------------------
+	private Button PlayB = new Button(grundsb36, GoToGame, "Play",new Vector2(-30, -100));
+	private Button HelpB = new Button(grundsb36, GoToHelp, "Help",new Vector2(-30, -200));
+
 	@Override
 	public void OnEnter(){
-		grundsb90 = new BitmapFont(Gdx.files.internal("grunds-b90.fnt"));
+		
 		titlestyle = new Label.LabelStyle(grundsb90, Color.WHITE);	
 	}
 
-	public void touchDown(){
-		StateManager.Switch(new Game());
-	}
 	@Override
 	public void Update(float dt) {
 		// TODO Auto-generated method stub
@@ -31,6 +50,8 @@ public class MainMenu extends State implements InputProcessor{
 		// TODO Auto-generated method stub
 		batch.begin();
 		grundsb90.draw(batch, "Kite", -60, 100);
+		PlayB.Draw(batch);
+		HelpB.Draw(batch);
 		batch.end();
 		
 	}
@@ -55,7 +76,11 @@ public class MainMenu extends State implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		StateManager.Switch(new Game());
+		//StateManager.Switch(new Game());
+		//StateManager.Switch(new Help());
+		Vector2 v = Kite.getViewport().unproject(new Vector2(screenX, screenY));
+		PlayB.Press(v.x, v.y);
+		HelpB.Press(v.x, v.y);
 		return false;
 	}
 
@@ -82,4 +107,5 @@ public class MainMenu extends State implements InputProcessor{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }

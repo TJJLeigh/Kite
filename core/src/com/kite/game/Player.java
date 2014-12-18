@@ -38,7 +38,7 @@ public class Player extends GameObject{
 	
 	@Override
 	void Update(float dt){
-		Vector3 holder = Kite.getViewport().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+		Vector2 holder = Kite.getViewport().unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 		vel = new Vector2(holder.x-( pos.x + playersprite.getOriginX()), holder.y-(pos.y +playersprite.getOriginY()));
 		speed = Math.min(vel.len()*2, 400);
 		playersprite.setRotation(vel.angle());

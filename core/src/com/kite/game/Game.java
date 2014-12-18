@@ -14,6 +14,7 @@ public class Game extends State implements InputProcessor{
 	static public Array<Bird> birds = new Array<Bird>();
 	static Timer birdtimer;
 	public static int Score;
+	public static int HighScore;
 	static BitmapFont scorefont;
 	Texture PauseButtonImage = new Texture("pause.png");
 	private Button PauseButton;
@@ -33,6 +34,7 @@ public class Game extends State implements InputProcessor{
 	};
 	@Override
 	public void OnEnter(){
+		Score = 0;
 		player  = new Player(new Vector2(100,100), 60);
 		birds = new Array<Bird>();
 		SpawnBird();
@@ -44,6 +46,7 @@ public class Game extends State implements InputProcessor{
 		scorefont = new BitmapFont(Gdx.files.internal("grunds-b90.fnt"));
 		PauseButton = new Button(PauseButtonImage, new Vector2(-360f, 640f-PauseButtonImage.getHeight()), 
 				PauseEvent, PauseButtonImage.getWidth(), PauseButtonImage.getHeight());
+		HighScore = Kite.prefs.getInteger("HS");
 	}
 	@Override
 	public void Update(float dt){
@@ -91,7 +94,7 @@ public class Game extends State implements InputProcessor{
 		
 	}
 	public static void ResumeTimer(){
-		birdtimer.scheduleTask(birdspawner,3f);
+		birdtimer.scheduleTask(birdspawner,3f,3f);
 	}
 	public static void PauseTimer(){
 		birdtimer.clear();

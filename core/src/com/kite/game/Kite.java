@@ -2,7 +2,7 @@ package com.kite.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +16,7 @@ public class Kite extends ApplicationAdapter{
 	static OrthographicCamera getCamera(){return cam;}
 	static Viewport viewport;
 	static Viewport getViewport(){return viewport;}
+	public static Preferences prefs;
 	SpriteBatch batch;
 
 	
@@ -25,6 +26,8 @@ public class Kite extends ApplicationAdapter{
 		viewport = new FitViewport(720,1280, cam);
 		batch = new SpriteBatch();
 		StateManager.Switch(new MainMenu());
+		prefs= Gdx.app.getPreferences("HighScore");
+		
 
 	}
 
@@ -50,4 +53,8 @@ public class Kite extends ApplicationAdapter{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		StateManager.Update(Gdx.graphics.getDeltaTime(), batch);
 	}
-}
+	@Override
+	public void dispose(){
+		System.gc();
+	}
+	}
