@@ -3,11 +3,12 @@ package com.kite.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Button{
-	private Texture image;
+	public Sprite image;
 	private BitmapFont font = new BitmapFont();
 	private String text ="";
 	private Vector2 pos;
@@ -49,12 +50,17 @@ public class Button{
 		this(i, new Vector2(0f,0f), e,w,h);
 	}
 	Button(Texture i, Vector2 p, ButtonEvent e, float w, float h){
-		image = i;
+		this(i,p,e,w,h,0);
+	}
+	Button(Texture i, Vector2 p, ButtonEvent e, float w, float h, float scale){
+		image = new Sprite(i);
 		pos = p;
 		OnPressed = e;
 		Width = w;
 		Height = h;
 		isHidden = false;
+		image.scale(scale);
+		
 	}
 	public void Hide(){
 		isHidden = true;
@@ -65,10 +71,13 @@ public class Button{
 	public void Draw(SpriteBatch batch){
 		if (!isHidden){
 			if(hasImage){
-				batch.draw(image, pos.x, pos.y);
+				//batch.draw(image, pos.x, pos.y);
+				batch.draw(image, pos.x, pos.y, image.getOriginX(), image.getOriginY(), image.getWidth(),
+						image.getHeight(), image.getScaleX(), image.getScaleY(), image.getRotation());
 			}
 			if(isString){
-				font.draw(batch, text, pos.x, pos.y);
+				//font.draw(batch, text, pos.x, pos.y);
+				font.drawWrapped(batch, text, -360, pos.y, 720, BitmapFont.HAlignment.CENTER);
 			}
 		}
 	}
@@ -78,9 +87,10 @@ public class Button{
 		if (x > pos.x && x < (pos.x + Width) && y < pos.y && y > (pos.y - Height) && isString){
 			OnPressed.run();
 		}
-		if (x > pos.x && x < (pos.x + Width) && y > pos.y && y < (pos.y + Height)&& !isString){
+		if (hasImage){
+		if (x > pos.x && x < (pos.x + Width * image.getScaleX()) && y > pos.y && y < (pos.y + Height * image.getScaleY())&& !isString){
 			OnPressed.run();
-		}
+		}}
 	}
 	
 	//Button Event that is run when the button is pressed

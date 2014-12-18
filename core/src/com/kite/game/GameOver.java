@@ -27,8 +27,8 @@ public class GameOver extends State implements InputProcessor{
 			StateManager.Switch(new Game());
 		}
 	};
-	private Button MMButton = new Button(grundsb36, GoToMainMenu, "Main Menu", new Vector2(-85,-75));
-	private Button AgainButton = new Button(grundsb36, PlayAgain, "Play Again", new Vector2(-85,-150));
+	private Button MMButton = new Button(grundsb36, GoToMainMenu, "Main Menu", new Vector2(-85,-150));
+	private Button AgainButton = new Button(grundsb36, PlayAgain, "Play Again", new Vector2(-85,-75));
 
 	
 	public void OnEnter(){
@@ -44,9 +44,9 @@ public class GameOver extends State implements InputProcessor{
 	
 	public void Draw(SpriteBatch batch){
 		batch.begin();
-		grundsb90.draw(batch, "Game Over", -215,210);
-		grundsb36.draw(batch, "Your Score: "+Integer.toString(Game.Score), -110, 100);
-		grundsb36.draw(batch, "Highscore: "+Integer.toString(Game.HighScore), -100, 25);
+		grundsb90.drawWrapped(batch, "Game Over", -360 ,210, 720, BitmapFont.HAlignment.CENTER);
+		grundsb36.drawWrapped(batch, "Your Score: "+Integer.toString(Game.Score), -360, 100, 720, BitmapFont.HAlignment.CENTER);
+		grundsb36.drawWrapped(batch, "Highscore: "+Integer.toString(Game.HighScore), -360, 25, 720, BitmapFont.HAlignment.CENTER);
 		batch.end();
 		batch.begin();
 		AgainButton.Draw(batch);

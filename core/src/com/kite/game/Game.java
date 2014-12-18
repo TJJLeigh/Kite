@@ -46,6 +46,7 @@ public class Game extends State implements InputProcessor{
 		scorefont = new BitmapFont(Gdx.files.internal("grunds-b90.fnt"));
 		PauseButton = new Button(PauseButtonImage, new Vector2(-360f, 640f-PauseButtonImage.getHeight()), 
 				PauseEvent, PauseButtonImage.getWidth(), PauseButtonImage.getHeight());
+		PauseButton.image.scale(-0.1f);
 		HighScore = Kite.prefs.getInteger("HS");
 	}
 	@Override
@@ -71,7 +72,7 @@ public class Game extends State implements InputProcessor{
 		
 	
 		batch.begin();
-		scorefont.draw(batch, Integer.toString(Score), -25, 640 - scorefont.getXHeight());
+		scorefont.drawWrapped(batch, Integer.toString(Score), -360, 640 - scorefont.getXHeight(), 720, BitmapFont.HAlignment.CENTER);
 		batch.end();
 		
 		

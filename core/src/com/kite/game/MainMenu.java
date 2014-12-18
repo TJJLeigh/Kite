@@ -49,7 +49,7 @@ public class MainMenu extends State implements InputProcessor{
 	public void Draw(SpriteBatch batch) {
 		// TODO Auto-generated method stub
 		batch.begin();
-		grundsb90.draw(batch, "Kite", -60, 100);
+		grundsb90.drawWrapped(batch, "Kite", -360, 100, 720, BitmapFont.HAlignment.CENTER);
 		PlayB.Draw(batch);
 		HelpB.Draw(batch);
 		batch.end();

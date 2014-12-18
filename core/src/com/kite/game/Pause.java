@@ -18,7 +18,8 @@ public class Pause extends State implements InputProcessor {
 		}
 	};
 	Button PlayButton = new Button(PlayButtonImage, new Vector2(-360f, 640f - PlayButtonImage.getHeight()), PlayEvent,
-			PlayButtonImage.getWidth(), PlayButtonImage.getHeight());
+			PlayButtonImage.getWidth(), PlayButtonImage.getHeight(), -0.1f);
+	
 	
 	@Override
 	public void Update(float dt) {
@@ -37,9 +38,10 @@ public class Pause extends State implements InputProcessor {
 		batch.end();
 
 	}
-
+	 
 	@Override
 	public void OnEnter() {
+		PlayButton.image.scale(-0.1f);
 	}
 	
 	@Override
