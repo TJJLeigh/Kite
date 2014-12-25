@@ -33,7 +33,7 @@ public class Kite extends ApplicationAdapter{
 
 	@Override
 	public void pause(){
-		if (StateManager.getStates().first().getClass() == Game.class){
+		if (StateManager.getStates().peek().getClass() == Game.class){
 		Game.HideButton();
 		Game.PauseTimer();
 		StateManager.Push(new Pause());
