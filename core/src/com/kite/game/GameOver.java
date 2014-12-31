@@ -21,7 +21,6 @@ public class GameOver extends State implements InputProcessor{
 		}
 	};
 	Button.ButtonEvent PlayAgain = new Button.ButtonEvent() {
-		
 		@Override
 		public void run() {
 			StateManager.Switch(new Game());
@@ -37,6 +36,7 @@ public class GameOver extends State implements InputProcessor{
 			Kite.prefs.putInteger("HS", Game.HighScore);
 			Kite.prefs.flush();
 		}
+        Kite.actionResolver.showAds(true);
 	}
 	public void Update(float dt){
 		

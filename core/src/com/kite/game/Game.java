@@ -23,6 +23,7 @@ public class Game extends State implements InputProcessor{
 		public void run(){
 			StateManager.Push(new Pause());
 			PauseTimer();
+            Kite.actionResolver.showAds(true);
 		}
 	};
 	static Timer.Task birdspawner = new Timer.Task() {
@@ -35,7 +36,7 @@ public class Game extends State implements InputProcessor{
 	@Override
 	public void OnEnter(){
 		Score = 0;
-		player  = new Player(new Vector2(100,100), 60);
+		player  = new Player(new Vector2(0,0), 60);
 		birds = new Array<Bird>();
 		SpawnBird();
 		try{birdtimer.clear();} catch (NullPointerException e){
@@ -48,6 +49,7 @@ public class Game extends State implements InputProcessor{
 				PauseEvent, PauseButtonImage.getWidth(), PauseButtonImage.getHeight());
 		PauseButton.image.scale(-0.1f);
 		HighScore = Kite.prefs.getInteger("HS");
+        Kite.actionResolver.showAds(false);
 	}
 	@Override
 	public void Update(float dt){
@@ -80,22 +82,18 @@ public class Game extends State implements InputProcessor{
 	public static void HideButton(){
 		PauseButton.Hide();
 	}
-/*	
-	public static void Reset(){
-		birdtimer.clear();
-		birds = new Array<Bird>();
-		Score = 0;
-	}
-	*/
+
 	static void SpawnBird(){
-		while (true){
-			Vector2 birdspawn = new Vector2((float)Math.random()*720 - 360,(float)Math.random()*1280 - 640);
-			if (new Vector2(birdspawn.x-player.getPos().x, birdspawn.y - player.getPos().y).len2() > 250000 ){
-				birds.add(new Bird(player, birdspawn, BirdType.RandomBird()));
-				break;
-				}
-			}
-		
+        for (int i = 0; i < (Score/10)+1; i++) {
+            while (true) {
+
+                Vector2 birdspawn = new Vector2((float) Math.random() * 720 - 360, (float) Math.random() * 1280 - 640);
+                if (new Vector2(birdspawn.x - player.getPos().x, birdspawn.y - player.getPos().y).len2() > 250000) {
+                    birds.add(new Bird(player, birdspawn, BirdType.RandomBird()));
+                    break;
+                }
+            }
+        }
 	}
 	public static void ResumeTimer(){
 		birdtimer.scheduleTask(birdspawner,3f,3f);

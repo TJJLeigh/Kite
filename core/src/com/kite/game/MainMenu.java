@@ -11,8 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 public class MainMenu extends State implements InputProcessor{
 	static BitmapFont grundsb90= new BitmapFont(Gdx.files.internal("grunds-b90.fnt"));
 	static BitmapFont grundsb36= new BitmapFont(Gdx.files.internal("grunds-b36.fnt"));
-	static Label.LabelStyle titlestyle;
-	static Label title;
 	//Button Events!
 	//------------------------------------------------------------
 	Button.ButtonEvent GoToGame = new Button.ButtonEvent() {
@@ -36,8 +34,7 @@ public class MainMenu extends State implements InputProcessor{
 
 	@Override
 	public void OnEnter(){
-		
-		titlestyle = new Label.LabelStyle(grundsb90, Color.WHITE);	
+        Kite.actionResolver.showAds(true);
 	}
 
 	@Override

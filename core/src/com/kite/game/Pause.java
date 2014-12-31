@@ -15,6 +15,7 @@ public class Pause extends State implements InputProcessor {
 		public void run() {
 			StateManager.Pop();
 			Game.ResumeTimer();
+            Kite.actionResolver.showAds(false);
 		}
 	};
 	Button PlayButton = new Button(PlayButtonImage, new Vector2(-360f, 640f - PlayButtonImage.getHeight()), PlayEvent,

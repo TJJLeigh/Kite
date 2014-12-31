@@ -21,7 +21,7 @@ public class StateManager {
 		Pop();
 		}
 		states.add(state);
-		Gdx.input.setInputProcessor(states.first());
+		Gdx.input.setInputProcessor(states.peek());
 		states.peek().OnEnter();
 	}
 	public static void Pop(){

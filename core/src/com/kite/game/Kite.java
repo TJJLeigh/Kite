@@ -16,9 +16,16 @@ public class Kite extends ApplicationAdapter{
 	static OrthographicCamera getCamera(){return cam;}
 	static Viewport viewport;
 	static Viewport getViewport(){return viewport;}
+    public static ActionResolver actionResolver;
 	public static Preferences prefs;
 	SpriteBatch batch;
 
+   public Kite(ActionResolver actionResolver){
+        this.actionResolver = actionResolver;
+    }
+   public Kite(){
+        this.actionResolver = new DummyResolver();
+    }
 	
 	@Override
 	public void create () {
@@ -34,13 +41,15 @@ public class Kite extends ApplicationAdapter{
 	@Override
 	public void pause(){
 		if (StateManager.getStates().peek().getClass() == Game.class){
-		Game.HideButton();
-		Game.PauseTimer();
-		StateManager.Push(new Pause());
+		    Game.HideButton();
+		    Game.PauseTimer();
+		    StateManager.Push(new Pause());
+            actionResolver.showAds(true);
 		}
 	}
 	@Override
 	public void resume(){
+
 	}
 	@Override
 	public void resize(int w, int h){
