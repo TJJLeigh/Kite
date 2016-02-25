@@ -24,7 +24,7 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 
     @Override
     public void showAds(boolean show){
-        handler.sendEmptyMessage(show ? SHOW_ADS : HIDE_ADS);
+        AdVisibilityHandler.sendEmptyMessage(show ? SHOW_ADS : HIDE_ADS);
     }
 
     protected Handler AdVisibilityHandler = new Handler(){

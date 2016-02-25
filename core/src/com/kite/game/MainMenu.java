@@ -2,6 +2,7 @@ package com.kite.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,30 +26,38 @@ public class MainMenu extends State implements InputProcessor{
 		@Override
 		public void run() {
 			StateManager.Push(new Help());
-			
+		}
+	};
+	Button.ButtonEvent GoToCredits = new Button.ButtonEvent() {
+		@Override
+		public void run() {
+			StateManager.Push(new Credits());
 		}
 	};
 	//------------------------------------------------------------
-	private Button PlayB = new Button(grundsb36, GoToGame, "Play",new Vector2(-30, -100));
-	private Button HelpB = new Button(grundsb36, GoToHelp, "Help",new Vector2(-30, -200));
+	private Button PlayB = new Button(grundsb36, GoToGame, "Play",new Vector2(-30, 0));
+	private Button HelpB = new Button(grundsb36, GoToHelp, "Help",new Vector2(-30, -100));
+	private Button CreditsB = new Button(grundsb36, GoToCredits, "Credits",new Vector2(-35, -200));
+
 
 	@Override
 	public void OnEnter(){
-        Kite.actionResolver.showAds(true);
+        AudioManager.getInstance().killme();
+        //Kite.actionResolver.showAds(true);
+		//AudioManager.getInstance().playMainMenuMusic();
 	}
 
 	@Override
 	public void Update(float dt) {
-		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void Draw(SpriteBatch batch) {
-		// TODO Auto-generated method stub
 		batch.begin();
-		grundsb90.drawWrapped(batch, "Kite", -360, 100, 720, BitmapFont.HAlignment.CENTER);
+		grundsb90.drawWrapped(batch, "Kite", -360, 200, 720, BitmapFont.HAlignment.CENTER);
 		PlayB.Draw(batch);
 		HelpB.Draw(batch);
+		CreditsB.Draw(batch);
 		batch.end();
 		
 	}
@@ -78,6 +87,7 @@ public class MainMenu extends State implements InputProcessor{
 		Vector2 v = Kite.getViewport().unproject(new Vector2(screenX, screenY));
 		PlayB.Press(v.x, v.y);
 		HelpB.Press(v.x, v.y);
+		CreditsB.Press(v.x, v.y);
 		return false;
 	}
 

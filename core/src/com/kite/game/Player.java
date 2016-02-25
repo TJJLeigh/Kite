@@ -52,7 +52,7 @@ public class Player extends GameObject{
 			st.Draw(batch);
 		}
 		batch.draw(playersprite, pos.x, pos.y, playersprite.getOriginX(), playersprite.getOriginY(),
-				playersprite.getWidth(),playersprite.getHeight(),1,1, playersprite.getRotation() );
+				playersprite.getWidth(),playersprite.getHeight(),.5f,.5f, playersprite.getRotation() );
 		
 		
 	}

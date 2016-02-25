@@ -36,7 +36,7 @@ public class GameOver extends State implements InputProcessor{
 			Kite.prefs.putInteger("HS", Game.HighScore);
 			Kite.prefs.flush();
 		}
-        Kite.actionResolver.showAds(true);
+        //Kite.actionResolver.showAds(true);
 	}
 	public void Update(float dt){
 		

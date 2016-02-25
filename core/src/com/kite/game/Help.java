@@ -14,19 +14,17 @@ public class Help extends State {
 			StateManager.Pop();
 		}
 	};
-	Button BackButton = new Button(ruletext, Back, "Back", new Vector2(-30, -500));
+	Button BackButton = new Button(ruletext, Back, "Back", new Vector2(-30, -300));
 	@Override
 	public void Update(float dt) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void Draw(SpriteBatch batch) {
-		// TODO Auto-generated method stub
 		batch.begin();
 		ruletext.draw(batch, "The String kills the birds", -200, 100);
-		ruletext.draw(batch, "Figure it out", -110, 0);
+		ruletext.draw(batch, "The Kite follows your finger", -210, 0);
 		BackButton.Draw(batch);
 		batch.end();
 

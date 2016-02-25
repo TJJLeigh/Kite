@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 public class Kite extends ApplicationAdapter{
+	public static final float TIMESTEP = 1f/60f;
 	static OrthographicCamera cam;
 	static OrthographicCamera getCamera(){return cam;}
 	static Viewport viewport;
@@ -19,12 +20,13 @@ public class Kite extends ApplicationAdapter{
     public static ActionResolver actionResolver;
 	public static Preferences prefs;
 	SpriteBatch batch;
+	float accumulator;
 
    public Kite(ActionResolver actionResolver){
         this.actionResolver = actionResolver;
     }
    public Kite(){
-        this.actionResolver = new DummyResolver();
+        this(new DummyResolver());
     }
 	
 	@Override
@@ -57,15 +59,19 @@ public class Kite extends ApplicationAdapter{
 	}
 	@Override
 	public void render () {
-		
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
-		Gdx.gl.glClearColor(.52f,.81f,1f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		StateManager.Update(Gdx.graphics.getDeltaTime(), batch);
+		accumulator += Gdx.graphics.getDeltaTime();
+		while (accumulator > TIMESTEP){
+            Gdx.gl.glClearColor(.52f, .81f, 1f, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			StateManager.Update(TIMESTEP, batch);
+			accumulator -= TIMESTEP;
+		}
+
 	}
 	@Override
 	public void dispose(){
 		System.gc();
 	}
-	}
+}

@@ -48,6 +48,7 @@ public class Bird extends GameObject{
 			if (new Vector2(st.getPos().x - getPos().x, st.getPos().y - getPos().y).len() < 68f){
 				Game.birds.removeValue(this, true);
 				Game.Score++;
+				AudioManager.getInstance().birdDeath();
 				break;
 			}
 		}
@@ -57,7 +58,7 @@ public class Bird extends GameObject{
 	public void Draw(SpriteBatch batch){
 		batch.setColor(type.getColor());
 		batch.draw(birdsprite, pos.x,pos.y, birdsprite.getOriginX(),birdsprite.getOriginY(),
-				birdsprite.getWidth(), birdsprite.getHeight(), 1,1, birdsprite.getRotation());
+				birdsprite.getWidth(), birdsprite.getHeight(), .5f,.5f, birdsprite.getRotation());
 		batch.setColor(Color.WHITE);
 	}
 }

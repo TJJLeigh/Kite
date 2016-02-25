@@ -1,5 +1,6 @@
 package com.kite.game;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
-public class Game extends State implements InputProcessor{
+public class Game extends State implements InputProcessor, ApplicationListener{
 	static Player player;
 	static public Array<Bird> birds = new Array<Bird>();
 	static Timer birdtimer;
@@ -23,7 +24,7 @@ public class Game extends State implements InputProcessor{
 		public void run(){
 			StateManager.Push(new Pause());
 			PauseTimer();
-            Kite.actionResolver.showAds(true);
+            //Kite.actionResolver.showAds(true);
 		}
 	};
 	static Timer.Task birdspawner = new Timer.Task() {
@@ -50,6 +51,7 @@ public class Game extends State implements InputProcessor{
 		PauseButton.image.scale(-0.1f);
 		HighScore = Kite.prefs.getInteger("HS");
         Kite.actionResolver.showAds(false);
+		AudioManager.getInstance().playAmbientWind();
 	}
 	@Override
 	public void Update(float dt){
@@ -107,12 +109,10 @@ public class Game extends State implements InputProcessor{
 	}
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
@@ -124,22 +124,49 @@ public class Game extends State implements InputProcessor{
 	}
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void create() {
+
+	}
+
+	@Override
+	public void resize(int width, int height) {
+
+	}
+
+	@Override
+	public void render() {
+
+	}
+
+	@Override
+	public void pause() {
+		//Kite.actionResolver.showAds(true);
+		StateManager.Push(new Pause());
+	}
+
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void dispose() {
+
 	}
 }
